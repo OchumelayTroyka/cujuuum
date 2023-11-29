@@ -1,15 +1,28 @@
 #include <cstdint>
-uint64_t joinVal, val = 0x12345678;
+#include <cstddef>
+using namespace std;
+uint32_t val = 0xFF00FF;//16711935 - фиолетовый
+byte splitVal[7];
+uint32_t joinVal;
 
-void setup() {
-	Serial.begin(9600);
+byte* pointer;
 
-	uint8_t* splitVal = (uint8_t*)&val;
-	uint8_t* pointer = (uint8_t*)&joinVal;
-	while (*splitVal) *pointer++ = *splitVal++;
+static void setup() {
+    Serial.begin(9600);
 
-	Serial.println(joinVal);
+    pointer = (byte*)&val;
+    for (byte; i = 0; i < 3; i++) {
+        splitVal[i] = *(pointer + i);
+    }
+
+    pointer = (byte*)&joinVal;
+    for (byte; i = 0; i < 3; i++) {
+        *(pointer + i) = splitVal[i];
+    }
+
+    Serial.println(joinVal, HEX);
 }
 
 void loop() {
+    
 }
