@@ -1,3 +1,4 @@
+#FNN
 #include <iostream>
 using namespace std;
 int main()
@@ -34,5 +35,40 @@ static void setup() {
 
     
 void loop() {)
-    
+
+
 }
+#Работает для флоат хотя через раз...печально... последний день( без зачета останемся что ли...только додумались
+    
+#include <iostream>
+#include <string>
+
+union NumberSplitter { #как Вы сообщали мне через юнион. Попытка не пытка.
+    int intValue;
+    float floatValue;
+    double doubleValue;
+    unsigned char byteValue[sizeof(double)];
+};
+
+int main() {
+    NumberSplitter splitter;
+    std::cout << "Enter a number: ";
+
+    std::cin >> splitter.doubleValue;
+
+    std::cout << "Bytes: ";
+    for (size_t i = 0; i < sizeof(splitter.byteValue); i++) {
+        std::cout << static_cast<int>(splitter.byteValue[i]) << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << "Bits: ";
+    for (size_t i = 0; i < sizeof(splitter.byteValue); i++) {
+        for (int j = 7; j >= 0; --j) {
+            std::cout << ((splitter.byteValue[i] >> j) & 1);
+        }
+        std::cout << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
